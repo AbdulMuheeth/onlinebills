@@ -1,0 +1,164 @@
+/* InvoiceForm.css - Styles for the data entry form */
+.form-and-print-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+
+}
+
+.invoice-form {
+  max-width: 900px;
+  margin: 0 auto; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+fieldset {
+  border: 1px solid #7a4e4e;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 0 10px;
+}
+
+.invoice-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.invoice-form input,
+.invoice-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.item-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.item-row input {
+  margin-bottom: 0;
+}
+.remove-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.print-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Hide the form when printing */
+@media print {
+  .invoice-form {
+    display: none;
+  }
+}
+
+/*
+  This class hides the printable component from the screen
+  by positioning it outside the viewport, but keeps it in the DOM
+  so the ref is always available.
+*/
+.printable-component {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/*
+  These are the crucial print styles. When the print dialog is open,
+  we hide everything on the page by default...
+*/
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  /*
+    ...and then we make ONLY our printable component and its contents visible.
+    This ensures that only the invoice is printed, without the form or buttons.
+  */
+  .printable-component, .printable-component * {
+    visibility: visible;
+  }
+
+  /*
+    Reposition the component to fill the entire page for printing.
+  */
+  .printable-component {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/*
+  This class now applies directly to the invoice component.
+  It hides it off-screen but keeps it in the DOM.
+*/
+.printable-area {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+}
+
+/*
+  These are the print styles. They are now simpler and more direct.
+*/
+@media print {
+  /* Hide everything on the page */
+  body * {
+    visibility: hidden;
+  }
+
+  /*
+    Make ONLY the element with the .printable-area class
+    (and all of its children) visible.
+  */
+  .printable-area, .printable-area * {
+    visibility: visible;
+  }
+
+  /* Position the printable area to fill the page */
+  .printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+select{
+  width: 100%;
+  height: 33px;
+}

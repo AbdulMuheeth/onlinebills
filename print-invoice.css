@@ -1,0 +1,158 @@
+/* public/print-invoice.css */
+
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  font-family: Arial, sans-serif !important;
+  margin: 0 !important;
+  background-color: #f2f2f2;
+  border-right: 1px solid black !important;
+}
+
+.invoice-wrapper {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 11px !important;
+  color: #000 !important;
+  
+}
+
+.invoice-title {
+  text-align: center !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  margin-bottom: 15px !important;
+}
+
+.box {
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  /* border-right:1px solid black; */
+}
+.box p {
+  margin: 3px 0 0 0 !important;
+  white-space: pre-wrap !important;
+  min-height: 20px !important;
+}
+.box strong {
+  font-weight: bold !important;
+}
+
+/* --- Grids Setup --- */
+.header-grid, .consignee-grid, .transport-grid, .items-table-container, .footer-grid {
+  border: 1px solid black !important;
+  border-bottom: none !important;
+}
+
+/* --- Section 1: Header --- */
+.header-grid {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr 1fr !important;
+  grid-template-rows: auto auto !important;
+  border-top: 1px solid black !important;
+}
+.header-grid .box { border-top: none !important; border-left: none !important; }
+.header-grid .exporter { grid-row: 1 / span 2; border-right: 1px solid black !important; }
+.header-grid .pro-ref { border-right: 1px solid black !important; border-bottom: 1px solid black !important; }
+.header-grid .exporter-ref { border-bottom: 1px solid black !important; }
+.header-grid .importer-ref { grid-column: 2 / span 2; }
+
+/* --- Section 2: Consignee --- */
+.consignee-grid {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr 1fr !important;
+  grid-template-rows: auto auto !important;
+}
+.consignee-grid .box { border-top: none !important; border-left: none !important; }
+.consignee-grid .consignee { grid-row: 1 / span 2; border-right: 1px solid black !important; }
+.consignee-grid .origin-country { border-right: 1px solid black !important; border-bottom: 1px solid black !important; }
+.consignee-grid .final-country { border-bottom: 1px solid black !important; }
+.consignee-grid .delivery-terms { grid-column: 2 / span 2; border-bottom: none !important;}
+
+/* --- Section 3: Transport --- */
+.transport-section {
+    display: grid !important;
+    /* This is the key fix: 2fr 2fr matches the effective 50/50 split of the sections above */
+    grid-template-columns: 2fr 2fr !important;
+    /* border-left: 1px solid black !important; */
+    border-right: 1px solid black !important;
+    /* border-top: 1px solid black !important; */
+}
+
+.transport-left-panel {
+    display: grid !important;
+    /* This creates two equal columns inside the left panel */
+    grid-template-columns: 1fr 1fr !important;
+    border-right: 1px solid black !important;
+}
+
+.transport-right-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    /* border-left: none !important; */
+}
+
+.box.carriage{
+    grid-row: 1 / span 2;
+    border-right: 1px solid black;
+}
+
+.box.incoterms{
+    border-top: none;
+    border-left: none;
+}
+
+.box.payment-terms{
+    border-top: none;
+    border-left: none;
+}
+
+.box.receipt{
+    border-left: none;
+}
+.box.port-of-loading{
+    border-left: none;
+    border-right: none;
+}
+
+.transport-section .box {
+    box-sizing: border-box !important;
+    /* border-bottom: 1px solid black !important; */
+    /* Use the universal .box styles for padding, border-top, border-left */
+}
+
+/* Add right border to the first column of the left panel */
+.transport-left-panel .box:nth-child(odd) {
+    /* border-right: 1px solid black !important; */
+}
+
+/* Remove bottom border from the last row of boxes */
+.transport-left-panel .discharge,
+.transport-left-panel .final-destination {
+    border-bottom: none !important;
+}
+.transport-right-panel .payment-terms {
+    border-bottom: none !important;
+}
+
+/* --- Section 4: Items Table --- */
+.items-table-container table { width: 100% !important; border-collapse: collapse !important; }
+.items-table-container th, .items-table-container td { border: 1px solid black !important; padding: 5px !important; vertical-align: top !important; text-align: left !important; }
+.items-table-container th { font-weight: bold !important; background-color: #f2f2f2 !important; }
+.items-table-container .empty-row td { height: 25px !important; }
+
+/* --- Section 5: Footer --- */
+.footer-grid {
+  display: grid !important;
+  grid-template-columns: 3fr 1fr !important;
+  border-bottom: 1px solid black !important;
+}
+.footer-grid .box { border-top: none !important; border-left: none !important; }
+.footer-grid .amount-word { border-right: 1px solid black !important; }
+.footer-grid .total { text-align: right !important; }
+.footer-grid .total-amount-value { font-weight: bold !important; text-align: right !important; margin-right: 10px !important; }
+.footer-grid .declaration { border-top: 1px solid black !important; border-right: 1px solid black !important; }
+.footer-grid .signature { border-top: 1px solid black !important; min-height: 60px !important; }

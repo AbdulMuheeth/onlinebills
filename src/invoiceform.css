@@ -1,164 +1,164 @@
-/* InvoiceForm.css - Styles for the data entry form */
-.form-and-print-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+/* === MODERN FORM STYLING === */
 
+/* --- 1. General Page & Font Setup --- */
+body {
+    background-color: #f4f7f9; /* A light, clean background color */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+    margin: 0;
 }
 
+h1 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* --- 2. Main Form Container & Layout --- */
 .invoice-form {
-  max-width: 900px;
-  margin: 0 auto; 
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff; /* Card-like effect */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    
+    /* The core of the 2-column layout */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 1.5rem 2rem; /* Row and column gap */
 }
 
+/* --- 3. Fieldset & Legend Styling --- */
 fieldset {
-  border: 1px solid #7a4e4e;
-  border-radius: 5px;
-  padding: 15px;
+    border: 1px solid #dfe6ee;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 0;
+    /* By default, fieldsets take up one column */
+}
+
+/* This class will be used for fieldsets that should span both columns */
+.full-width-fieldset {
+    grid-column: 1 / -1; /* Span from the first to the last column line */
 }
 
 legend {
-  font-weight: bold;
-  font-size: 1.1em;
-  padding: 0 10px;
+    font-weight: 600; /* Bolder */
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+    color: #34495e;
 }
 
+/* --- 4. Input, Textarea, & Select Styling --- */
 .invoice-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
 }
 
 .invoice-form input,
-.invoice-form textarea {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+.invoice-form textarea,
+.invoice-form select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #cdd5de;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Consistent height for select elements */
+.invoice-form select {
+    height: 50px;
+}
+
+/* Enhanced focus styles for better UX */
+.invoice-form input:focus,
+.invoice-form textarea:focus,
+.invoice-form select:focus {
+    outline: none;
+    border-color: #4a90e2; /* A nice blue for focus */
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+/* --- 5. Dynamic Items List Styling --- */
 .item-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  align-items: center;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
 }
 .item-row input {
-  margin-bottom: 0;
+    margin-bottom: 0; /* Override default margin */
 }
+
+/* --- 6. Button Styling --- */
+.remove-btn, .add-item-btn, .print-button {
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.remove-btn:hover, .add-item-btn:hover, .print-button:hover {
+    transform: translateY(-1px);
+}
+
 .remove-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 4px;
+    background-color: #e74c3c;
+    color: white;
 }
+.remove-btn:hover { background-color: #c0392b; }
+
+.add-item-btn {
+    background-color: #3498db;
+    color: white;
+}
+.add-item-btn:hover { background-color: #2980b9; }
 
 .print-button {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
+    background-color: #2ecc71;
+    color: white;
+    grid-column: 1 / -1; /* Make print button span full width */
+    margin-top: 1rem;
+}
+.print-button:hover { background-color: #27ae60; }
+
+
+/* --- 7. Responsiveness --- */
+/* On screens smaller than 768px (tablets and phones) */
+@media (max-width: 768px) {
+    .invoice-form {
+        grid-template-columns: 1fr; /* Collapse to a single column */
+        padding: 1rem;
+    }
+    
+    .item-row {
+        flex-wrap: wrap; /* Allow item inputs to wrap on small screens */
+    }
 }
 
-/* Hide the form when printing */
-@media print {
-  .invoice-form {
-    display: none;
-  }
-}
-
-/*
-  This class hides the printable component from the screen
-  by positioning it outside the viewport, but keeps it in the DOM
-  so the ref is always available.
-*/
-.printable-component {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-/*
-  These are the crucial print styles. When the print dialog is open,
-  we hide everything on the page by default...
-*/
-@media print {
-  body * {
-    visibility: hidden;
-  }
-
-  /*
-    ...and then we make ONLY our printable component and its contents visible.
-    This ensures that only the invoice is printed, without the form or buttons.
-  */
-  .printable-component, .printable-component * {
-    visibility: visible;
-  }
-
-  /*
-    Reposition the component to fill the entire page for printing.
-  */
-  .printable-component {
+/* --- 8. Print Styles (Unchanged) --- */
+.printable-component, .printable-area {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
+    left: -9999px;
+    top: auto;
 }
-
-/*
-  This class now applies directly to the invoice component.
-  It hides it off-screen but keeps it in the DOM.
-*/
-.printable-area {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-}
-
-/*
-  These are the print styles. They are now simpler and more direct.
-*/
 @media print {
-  /* Hide everything on the page */
-  body * {
-    visibility: hidden;
-  }
-
-  /*
-    Make ONLY the element with the .printable-area class
-    (and all of its children) visible.
-  */
-  .printable-area, .printable-area * {
-    visibility: visible;
-  }
-
-  /* Position the printable area to fill the page */
-  .printable-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-}
-
-select{
-  width: 100%;
-  height: 33px;
+    body * { visibility: hidden; }
+    .printable-component, .printable-component *, .printable-area, .printable-area * {
+        visibility: visible;
+    }
+    .printable-component, .printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
 }

@@ -26,3 +26,27 @@ export interface ProformaInvoiceData {
   items: InvoiceItem[];
   amountChargeableInWord: string;
 }
+
+// commner slice types.
+
+export type carriageByType = '' | 'Truck' | 'Train' | 'Vessel' | 'FlightNo' | 'Road' | 'Rail' | 'Sea' | 'Air' | 'Multimodal' ;
+
+
+export type CommonerSlice = {
+    exporter: string,
+    consignee: string,
+    invoiceRefAndDate: string,
+    exportersRefNo: string,
+    importersRefAndDate: string, // similar to import's order no. & data in 2 & 3 form
+    countryOfOrigin: string,
+    countryOfFinalDestination: string,
+    placeByReceiptByPreCarrier:string,
+    portOfLoading: string,
+    portOfDischarge:string,
+    finalDestination:string,
+    items: InvoiceItem[],
+    remarks:string,
+    termsOfDelivery:string,
+    carriageBy: carriageByType 
+    otherRef:string,
+}

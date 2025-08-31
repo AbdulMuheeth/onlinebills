@@ -6,7 +6,6 @@ body {
   font-family: Arial, sans-serif !important;
   margin: 0 !important;
   background-color: #f2f2f2;
-  border-right: 1px solid black !important;
 }
 
 .invoice-wrapper {
@@ -14,14 +13,13 @@ body {
   box-sizing: border-box !important;
   font-size: 11px !important;
   color: #000 !important;
-  
 }
 
 .invoice-title {
   text-align: center !important;
   font-size: 16px !important;
   font-weight: bold !important;
-  text-decoration: underline !important;
+  /* text-decoration: underline !important; */
   margin-bottom: 15px !important;
 }
 
@@ -30,7 +28,6 @@ body {
   box-sizing: border-box !important;
   border-top: 1px solid black;
   border-left: 1px solid black;
-  /* border-right:1px solid black; */
 }
 .box p {
   margin: 3px 0 0 0 !important;
@@ -51,26 +48,29 @@ body {
 .header-grid {
   display: grid !important;
   grid-template-columns: 2fr 1fr 1fr !important;
-  grid-template-rows: auto auto !important;
+  grid-template-rows: auto auto auto !important;
   border-top: 1px solid black !important;
 }
 .header-grid .box { border-top: none !important; border-left: none !important; }
-.header-grid .exporter { grid-row: 1 / span 2; border-right: 1px solid black !important; }
-.header-grid .pro-ref { border-right: 1px solid black !important; border-bottom: 1px solid black !important; }
-.header-grid .exporter-ref { border-bottom: 1px solid black !important; }
+.header-grid .exporter { grid-row: 1 / span 3; border-right: 1px solid black !important; }
+.header-grid .pro-ref { border-bottom: 1px solid black !important;}
+.header-grid .pro-ref.non-cargo {grid-column: 2 / span 2;}
+.header-grid .exporter-ref { border-left: 1px solid black !important; border-bottom: 1px solid black !important;}
 .header-grid .importer-ref { grid-column: 2 / span 2; }
+.header-grid .other-ref {grid-column: 2 / span 2; grid-row:3; border-top: 1px solid black !important;}
 
 /* --- Section 2: Consignee --- */
 .consignee-grid {
   display: grid !important;
   grid-template-columns: 2fr 1fr 1fr !important;
-  grid-template-rows: auto auto !important;
+  grid-template-rows: 2fr 1fr !important;
 }
 .consignee-grid .box { border-top: none !important; border-left: none !important; }
 .consignee-grid .consignee { grid-row: 1 / span 2; border-right: 1px solid black !important; }
 .consignee-grid .origin-country { border-right: 1px solid black !important; border-bottom: 1px solid black !important; }
 .consignee-grid .final-country { border-bottom: 1px solid black !important; }
 .consignee-grid .delivery-terms { grid-column: 2 / span 2; border-bottom: none !important;}
+.consignee-grid .remarks { grid-column: 2 / span 2;border-bottom: 1px solid black;}
 
 /* --- Section 3: Transport --- */
 .transport-section {
@@ -134,25 +134,41 @@ body {
 .transport-left-panel .final-destination {
     border-bottom: none !important;
 }
+.transport-left-panel .final-destination {
+    border-left: none !important;
+}
+.transport-left-panel .discharge{
+  border-right: 1px solid black !important;
+}
 .transport-right-panel .payment-terms {
     border-bottom: none !important;
 }
 
 /* --- Section 4: Items Table --- */
-.items-table-container table { width: 100% !important; border-collapse: collapse !important; }
-.items-table-container th, .items-table-container td { border: 1px solid black !important; padding: 5px !important; vertical-align: top !important; text-align: left !important; }
+.items-table-container table { width: 100% !important; border-collapse: collapse !important; border: none !important;}
+.items-table-container th, .items-table-container td { border-bottom: 1px solid black !important; border-right: 1px solid black !important; padding: 5px !important; vertical-align: top !important; text-align: left !important; }
+.items-table-container th:last-child, .items-table-container td:last-child {
+  border-right: none !important;
+}
 .items-table-container th { font-weight: bold !important; background-color: #f2f2f2 !important; }
 .items-table-container .empty-row td { height: 25px !important; }
+.items-table-container { min-height: 30vh; border-bottom: 1px solid black !important; border-top:1px solid black;}
 
+tbody tr td > div {
+    height: 100%;
+    min-height: 40px !important;
+}
 /* --- Section 5: Footer --- */
 .footer-grid {
   display: grid !important;
   grid-template-columns: 3fr 1fr !important;
   border-bottom: 1px solid black !important;
+  border-top: none !important;
+  padding-top:10px;
 }
 .footer-grid .box { border-top: none !important; border-left: none !important; }
-.footer-grid .amount-word { border-right: 1px solid black !important; }
+/* .footer-grid .amount-word { border-right: 1px solid black !important; } */
 .footer-grid .total { text-align: right !important; }
 .footer-grid .total-amount-value { font-weight: bold !important; text-align: right !important; margin-right: 10px !important; }
-.footer-grid .declaration { border-top: 1px solid black !important; border-right: 1px solid black !important; }
-.footer-grid .signature { border-top: 1px solid black !important; min-height: 60px !important; }
+/* .footer-grid .declaration {border-right: 1px solid black !important;} */
+.footer-grid .signature { border-top: 1px solid black !important;border-left: 1px solid black !important; min-height: 60px !important; grid-column: 2;}

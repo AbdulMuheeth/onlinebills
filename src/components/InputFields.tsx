@@ -1,35 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 // import { useReactToPrint } from 'react-to-print';
 // import { ReactToPrint } from 'react-to-print';
 import { countries } from 'countries-list'
-import { type ProformaInvoiceData } from '../types';
-import { PrintableInvoice } from './ProformaInvoice.tsx';
+import { type CommonerSlice as CommonerSliceType, type InvoiceItem } from '../types';
+import { PrintableInvoice } from './printableInvoice.tsx';
 import '../invoiceform.css'; // Form-specific styles
+import { useDispatch, useSelector } from 'react-redux';
+import { type formType } from '../redux/slice/uiSlice.ts';
+import { type AppDispatch, type RootState } from '../redux/store.ts';
+import { updateCommoner } from '../redux/slice/commonerSlice.ts';
 
-const initialData: ProformaInvoiceData = {
-  exporter: 'Global Exports Pvt. Ltd.\n123 Export Lane, Mumbai, India',
-  consignee: 'International Imports Inc.\n456 Import Street, New York, USA',
-  proRefAndDate: 'PI-2025-001 / 2025-08-23',
-  importersRefAndDate: 'PO-98765 / 2025-08-20',
-  exportersRefNo: 'EXP-REF-456',
-  countryOfOrigin: 'India',
-  countryOfFinalDestination: 'USA',
-  termsOfDelivery: 'Goods to be delivered within 30 days of shipment.',
-  paymentTerms: '50% Advance, 50% on Delivery',
-  incoterms: 'CIF (Cost, Insurance, and Freight)',
-  carriageBy: 'Sea',
-  placeByReceiptByPreCarrier: 'Mumbai Port',
-  portOfLoading: 'JNPT, Mumbai, India',
-  portOfDischarge: 'Port of New York, USA',
-  finalDestination: 'New York, USA',
-  items: [
-    { id: 1, marksNo: 'CONT-123', noAndKind: '10 Pallets', description: 'Handcrafted Leather Bags', quantity: '200', rate: '50' },
-  ],
-  amountChargeableInWord: 'Seventeen Thousand Five Hundred Only',
-};
+interface Props {
+  formType: formType,
+}
 
-export const InvoiceForm = () => {
-  const [invoiceData, setInvoiceData] = useState<ProformaInvoiceData>(initialData);
+export const InvoiceForm = ({formType}:Props) => {
+  // const [invoiceData, setInvoiceData] = useState<ProformaInvoiceData>(initialData);
+  const invoiceData = useSelector((state:RootState) => state.commoner);
+  const dispatch = useDispatch<AppDispatch>();
+
   const printableRef = useRef<HTMLDivElement>(null);
   const countryNames = Object.values(countries).map(country=>country.name);
 
@@ -80,35 +69,41 @@ export const InvoiceForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setInvoiceData(prev => ({ ...prev, [name]: value }));
+    const key = name as keyof CommonerSliceType;
+
+    dispatch(updateCommoner({ key ,value}))
   };
 
   const handleItemChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const items = [...invoiceData.items];
+    const items:InvoiceItem[] = [...invoiceData.items];
     items[index] = { ...items[index], [name]: value };
-    setInvoiceData(prev => ({ ...prev, items }));
+
+    dispatch(updateCommoner({key:"items",value: items}))
   };
 
   const addItem = () => {
-    setInvoiceData(prev => ({
-      ...prev,
-      items: [
-        ...prev.items,
-        { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '' }
-      ]
-    }));
+
+    const items:InvoiceItem[] = [...invoiceData.items];
+    items.push(
+      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '' }
+    )
+
+    dispatch(updateCommoner({key:"items",value: items}));
   };
 
   const removeItem = (index: number) => {
-    const items = invoiceData.items.filter((_, i) => i !== index);
-    setInvoiceData(prev => ({ ...prev, items }));
+
+    let items:InvoiceItem[] = [...invoiceData.items];
+    items = invoiceData.items.filter((_, i) => i !== index);
+
+    dispatch(updateCommoner({key:"items",value: items}));
   };
 
   return (
     <div className="form-and-print-container">
+      <h1>{formType.replace(/_/g, " ")} Details</h1>
       <div className="invoice-form">
-        <h1>Proforma Invoice Details</h1>
         {/* Party Details */}
         <fieldset>
           <legend>Parties</legend>
@@ -121,12 +116,18 @@ export const InvoiceForm = () => {
         {/* Reference Details */}
         <fieldset>
           <legend>References</legend>
-           <label>Pro Ref & Date:</label>
-           <input type="text" name="proRefAndDate" value={invoiceData.proRefAndDate} onChange={handleChange} />
+           <label>Invoice Ref & Date:</label>
+           <input type="text" name="invoiceRefAndDate" value={invoiceData.invoiceRefAndDate} onChange={handleChange} />
            <label>Importer's Ref No. & Date:</label>
            <input type="text" name="importersRefAndDate" value={invoiceData.importersRefAndDate} onChange={handleChange} />
            <label>Exporter's Reference No:</label>
            <input type="text" name="exportersRefNo" value={invoiceData.exportersRefNo} onChange={handleChange} />
+           {
+            (formType === "COMMERCIAL_INVOICE" || formType === "CARGO_MANIFEST") ? 
+              <> <label>Other Reference ( If any)</label>
+                  <input type="text" name="otherRef" value={invoiceData.otherRef} onChange={handleChange} /> 
+              </> : ""
+           }
         </fieldset>
 
         {/* Other Details - Add all other fields similarly */}
@@ -144,8 +145,28 @@ export const InvoiceForm = () => {
                     <option key={name} value={name}>{name}</option>
                 )}
             </select>
-            <label>Carriage By:</label>
-            <input type="text" name="carriageBy" value={invoiceData.carriageBy} onChange={handleChange} />
+            <label>{(formType === "COMMERCIAL_INVOICE" || formType === "CARGO_MANIFEST") ? "Pre Carriage By" : "Carriage By"}</label>
+            <select name="carriageBy" value={invoiceData.carriageBy} onChange={handleChange} defaultValue={''}>
+              {/* '' | 'Truck' | 'Train' | 'Vessel' | 'FlightNo' | 'Road' | 'Rail' | 'Sea' | 'Air' | 'Multimodal' ; */}
+              <option key={-1} value={''} >Select a value</option>
+              { 
+                formType === "PROFORMA_INVOICE" ? 
+                  <> 
+                    <option key={'Truck'} value={'Truck'}>Truck</option>
+                    <option key={'Train'} value={'Train'}>Train</option>
+                    <option key={'Vessel'} value={'Vessel'}>Vessel</option>
+                    <option key={'FlightNo'} value={'FlightNo'}>FlightNo</option> 
+                  </> :
+                  <>
+                    <option key={'Road'} value={'Road'}>Road</option>
+                    <option key={'Rail'} value={'Rail'}>Rail</option>
+                    <option key={'Sea'} value={'Sea'}>Sea</option>
+                    <option key={'Air'} value={'Air'}>Air</option> 
+                    <option key={'Multimodal'} value={'Multimodal'}>Multimodal</option> 
+                  </>
+              
+              }
+            </select>
             <label>Place By Receipt by Pre Carrier:</label>
             <input type="text" name="placeByReceiptByPreCarrier" value={invoiceData.placeByReceiptByPreCarrier} onChange={handleChange} />
             <label>Port of Loading/Dispatch::</label>
@@ -159,16 +180,18 @@ export const InvoiceForm = () => {
 
         <fieldset>
             <legend>Terms of Delivery</legend>
+            <label>Remarks:</label>
+            <textarea name="remarks" value={invoiceData.remarks} onChange={handleChange}></textarea>
             <label>Terms of Delivery and Payments Terms:</label>
             <input type="text" name="termsOfDelivery" value={invoiceData.termsOfDelivery} onChange={handleChange} />
-            <label>A. Incoterms:</label>
+            {/* <label>A. Incoterms:</label>
             <input type="text" name="incoterms" value={invoiceData.incoterms} onChange={handleChange} />
             <label>B. Payment Terms:</label>
-            <input type="text" name="paymentTerms" value={invoiceData.paymentTerms} onChange={handleChange} />
+            <input type="text" name="paymentTerms" value={invoiceData.paymentTerms} onChange={handleChange} /> */}
         </fieldset>
 
         {/* Items Section */}
-        <fieldset>
+        <fieldset className="full-width-fieldset">
           <legend>Items</legend>
           {invoiceData.items.map((item, index) => (
             <div key={item.id} className="item-row">
@@ -180,7 +203,7 @@ export const InvoiceForm = () => {
               <button type="button" onClick={() => removeItem(index)} className="remove-btn">Remove</button>
             </div>
           ))}
-          <button type="button" onClick={addItem}>Add Item</button>
+          <button type="button" onClick={addItem} className="add-item-btn">Add Item</button>
         </fieldset>
 
         {/* <fieldset>
@@ -194,8 +217,10 @@ export const InvoiceForm = () => {
       </div>
 
       {/* This is the component that will be printed. It's hidden from the screen view. */}
-      <div className='printable-component'>
-        <PrintableInvoice ref={printableRef} data={invoiceData} 
+      <div 
+      className='printable-component'
+      >
+        <PrintableInvoice formType={formType} ref={printableRef} data={invoiceData} 
         // className='printable-area'
         />
       </div>

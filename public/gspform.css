@@ -1,0 +1,191 @@
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  font-family: Arial, sans-serif !important;
+  margin: 0 !important;
+  background-color: #f2f2f2;
+}
+
+.item-description{
+  white-space: pre-wrap;
+  word-wrap: break-word !important;
+  max-width: 100%;
+}
+
+.inner-wrapper {
+  width: 100% !important;         /* Same as invoice */
+  max-width: 1150px !important;   /*Optional: keeps same width as form*/
+  margin: 0 auto !important;      /* Center align */
+  box-sizing: border-box !important;
+  font-size: 11px !important;
+  color: #000 !important;
+}
+
+.invoice-title {
+  text-align: center !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  margin-bottom: 15px !important;
+}
+
+.box {
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+.box p {
+  margin: 3px 0 0 0 !important;
+  white-space: pre-wrap !important;
+  min-height: 20px !important;
+}
+.box strong {
+  font-weight: bold !important;
+}
+
+.header-gsp-grid, .exporter-gsp-grid, .transport-gsp, .items-gsp-grid, .certification-gsp-grid{
+    /* color: aqua !important; */
+    /* border: 1px solid black !important;
+    border-collapse: collapse !important; */
+    border-bottom: none !important;
+}
+
+/* section-0 header grid */
+
+.header-gsp-grid{
+    display: grid !important;
+    grid-template-columns: auto !important;
+    grid-template-rows: auto auto !important;
+    /* border-top: 1px solid black !important; */   
+    justify-content: center;
+}
+
+.header-gsp-grid .gsp-heading{
+    grid-column: 1 / span 1;
+    border:none !important;
+}
+
+/* section-1 exporter grid */
+.exporter-gsp-grid{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: auto auto auto auto !important;
+    
+}
+
+.exporter-gsp-grid .exporter-gsp{
+    grid-row:1 / span 2;
+    grid-column:1;
+    border-left: none !important;
+}
+.exporter-gsp-grid .consignee-gsp{
+    min-height: 120px !important;   
+    grid-row:3 / span 2;
+    grid-column:1;
+    border-left: none !important;
+}
+.exporter-gsp-grid .reference-gsp{
+    grid-row:1 / span 4;
+    grid-column:2;
+    
+}
+
+/* section 2 transport grid */
+.transport-gsp-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: auto auto !important;
+}
+
+.transport-gsp-grid .transport-gsp{
+    min-height: 80px !important;   
+    grid-column: 1 / span 1;
+    border-left: none !important;
+}
+
+.transport-gsp-grid .officialuse-gsp{
+    grid-column: 2 / span 1 !important;
+}
+
+/* --- section 3 items table --- */
+.items-gsp-grid { 
+    min-height: 30vh !important;
+    border-top: 1px solid black !important;
+    /* This prevents the table from overflowing its container */
+    overflow: hidden;
+}
+
+.items-gsp-grid table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    /* This rule is crucial for making percentages work predictably */
+    table-layout: fixed !important; 
+}
+
+/* Define column widths that sum to 100% */
+.items-gsp-grid .width1 { width: 7% !important; }  /* Item Number */
+.items-gsp-grid .width2 { width: 15% !important; } /* Marks and number */
+.items-gsp-grid .width3 { width: 36% !important; } /* Description of goods */
+.items-gsp-grid .width4 { width: 12% !important; } /* Origin criterion */
+.items-gsp-grid .width5 { width: 15% !important; } /* Gross weight */
+.items-gsp-grid .width6 { width: 15% !important; } /* Number and date of invoice */
+/* Total = 7 + 15 + 36 + 12 + 15 + 15 = 100% */
+
+.items-gsp-grid th, .items-gsp-grid td {  
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    padding: 5px !important;
+    vertical-align: top !important;
+    text-align: left !important;
+    /* This tells the browser to include padding and border in the element's total width */
+    box-sizing: border-box !important;
+    /* This forces long, unbreakable text to wrap */
+    word-wrap: break-word;
+}
+
+tbody tr td > div {
+    min-height: 40px !important;
+}
+
+
+/* Section 4 - Certification and declaration grid */
+.certification-gsp-grid{
+    display: grid !important;
+    /* min-height: 15vh !important; */
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: auto auto !important;
+}
+
+.certification-gsp-grid .certification-gsp{
+    border-left: none !important;
+}
+
+.certification-gsp-grid .certification-gsp,.certification-gsp-grid .declaration-gsp{
+    min-height: 200px !important;
+}
+
+.certification-gsp-grid .certification-gsp .cell, .certification-gsp-grid .declaration-gsp .cell{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Push top text up, signature to bottom */
+  height: 80%;                  /* Fill full cell height */
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.certification-gsp-grid .certification-gsp .cell .cell-content, .certification-gsp-grid .declaration-gsp .cell .cell-content{
+  text-align: left;
+}
+
+.certification-gsp-grid .certification-gsp .cell .cell-footer, .certification-gsp-grid .declaration-gsp .cell .cell-footer{
+  margin-top: auto;  /*Ensures footer sits at bottom*/
+  /* font-size: 12px; */
+  white-space: pre-wrap; 
+}
+
+/* .certification-gsp p,.declaration-gsp p{
+    display: flex;
+    flex-direction: column;
+    justify-content: ;
+} */

@@ -162,3 +162,13 @@ legend {
         width: 100%;
     }
 }
+
+.item-row input, .item-row textarea {
+    max-height: 45px !important;
+    margin: auto 0;
+}
+
+.form-item-description{
+    resize:none;
+    overflow:hidden;
+}

@@ -5,9 +5,11 @@ import { type WritableDraft } from 'immer';
 const initialState: commonerSliceType = {
     exporter:'',
     consignee:'',
-    invoiceRefAndDate: '',
+    invoiceRef: '',
+    invoiceDate:Date(),
     exportersRefNo: '',
-    importersRefAndDate: '', // similar to import's order no. & data in 2 & 3 form
+    importersRef: '', // similar to import's order no. & data in 2 & 3 form
+    importersDate:Date(),
     countryOfOrigin: '',
     countryOfFinalDestination: '',
     placeByReceiptByPreCarrier: '',
@@ -17,8 +19,12 @@ const initialState: commonerSliceType = {
     items: [],
     remarks:'',
     termsOfDelivery:'',
+    incoTerms:'',
+    paymentTerms:'',
     carriageBy:'',
-    otherRef:''
+    otherRef:'',
+    vesselOrFlightNo:'',
+    
 }
 
 

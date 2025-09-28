@@ -71,3 +71,7 @@ button:focus-visible {
 #alignCenter{
   align-items: baseline;
 }
+
+.form-container{
+  margin: 0em 4em 4em 4em;
+}

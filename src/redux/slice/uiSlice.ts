@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 
-export type formType = "PROFORMA_INVOICE" | "COMMERCIAL_INVOICE" | "CARGO_MANIFEST";
+export type formType = "PROFORMA_INVOICE" | "COMMERCIAL_INVOICE" | "CARGO_MANIFEST" | "GSP_FORM_A" | "APPLICATION_FOR_CERTIFICATE_OF_ORIGIN";
 
 
 const uiSlice = createSlice({

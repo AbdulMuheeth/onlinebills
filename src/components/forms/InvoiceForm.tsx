@@ -2,13 +2,14 @@ import React, { useRef } from 'react';
 // import { useReactToPrint } from 'react-to-print';
 // import { ReactToPrint } from 'react-to-print';
 import { countries } from 'countries-list'
-import { type CommonerSlice as CommonerSliceType, type InvoiceItem } from '../types';
-import { PrintableInvoice } from './printableInvoice.tsx';
-import '../invoiceform.css'; // Form-specific styles
+import { type CommonerSlice as CommonerSliceType, type InvoiceItem } from '../../types.ts';
+import { PrintableInvoice } from '../layouts/InvoiceLayout.tsx';
+import '../../assets/css/invoiceform.css'; // Form-specific styles
 import { useDispatch, useSelector } from 'react-redux';
-import { type formType } from '../redux/slice/uiSlice.ts';
-import { type AppDispatch, type RootState } from '../redux/store.ts';
-import { updateCommoner } from '../redux/slice/commonerSlice.ts';
+import { type formType } from '../../redux/slice/uiSlice.ts';
+import { type AppDispatch, type RootState } from '../../redux/store.ts';
+import { updateCommoner } from '../../redux/slice/commonerSlice.ts';
+import { printHandler } from '../../functions/printHandler.tsx';
 
 interface Props {
   formType: formType,
@@ -22,50 +23,7 @@ export const InvoiceForm = ({formType}:Props) => {
   const printableRef = useRef<HTMLDivElement>(null);
   const countryNames = Object.values(countries).map(country=>country.name);
 
-    const handlePrint = async () => {
-        const printableElement = printableRef.current;
-        if (!printableElement) {
-            console.error("Print failed: Printable component not available.");
-            return;
-        }
-
-        try {
-            // Fetch the dedicated print stylesheet
-            const response = await fetch('/print-invoice.css');
-            
-            const printStyles = await response.text();
-
-            const printWindow = window.open('', '', 'height=800,width=1000');
-
-            if (printWindow) {
-                printWindow.document.write(`
-                    <html>
-                        <head>
-                            <title>Proforma Invoice</title>
-                            <style>
-                                ${printStyles}
-                            </style>
-                        </head>
-                        <body>
-                            ${printableElement.innerHTML}
-                        </body>
-                    </html>
-                `);
-                
-                printWindow.document.close();
-                printWindow.focus();
-                
-                // Use a timeout to let the browser render the content and styles
-                setTimeout(() => {
-                    printWindow.print();
-                    printWindow.close();
-                }, 750); // Increased timeout for stability
-            }
-        } catch (error) {
-            console.error("Failed to fetch print styles or open print window:", error);
-            alert("Could not print the document. Please check the console for errors.");
-        }
-    };
+  const handlePrint = React.useCallback( () =>{ printHandler(printableRef,'/invoice.css') }, [printableRef.current] );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -74,7 +32,7 @@ export const InvoiceForm = ({formType}:Props) => {
     dispatch(updateCommoner({ key ,value}))
   };
 
-  const handleItemChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleItemChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const items:InvoiceItem[] = [...invoiceData.items];
     items[index] = { ...items[index], [name]: value };
@@ -86,7 +44,7 @@ export const InvoiceForm = ({formType}:Props) => {
 
     const items:InvoiceItem[] = [...invoiceData.items];
     items.push(
-      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '' }
+      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'' }
     )
 
     dispatch(updateCommoner({key:"items",value: items}));
@@ -116,10 +74,14 @@ export const InvoiceForm = ({formType}:Props) => {
         {/* Reference Details */}
         <fieldset>
           <legend>References</legend>
-           <label>Invoice Ref & Date:</label>
-           <input type="text" name="invoiceRefAndDate" value={invoiceData.invoiceRefAndDate} onChange={handleChange} />
-           <label>Importer's Ref No. & Date:</label>
-           <input type="text" name="importersRefAndDate" value={invoiceData.importersRefAndDate} onChange={handleChange} />
+           <label>Invoice Ref:</label>
+           <input type="text" name="invoiceRef" value={invoiceData.invoiceRef} onChange={handleChange} />
+           <label>Invoice Date:</label>
+           <input type="date" name="invoiceDate" value={invoiceData.invoiceDate} onChange={handleChange}/>
+           <label>Importer's Ref No.:</label>
+           <input type="text" name="importersRef" value={invoiceData.importersRef} onChange={handleChange} />
+           <label>Importer's Date:</label>
+           <input type="date" name="importersDate" value={invoiceData.importersDate}onChange={handleChange}/>
            <label>Exporter's Reference No:</label>
            <input type="text" name="exportersRefNo" value={invoiceData.exportersRefNo} onChange={handleChange} />
            {
@@ -150,9 +112,9 @@ export const InvoiceForm = ({formType}:Props) => {
               {/* '' | 'Truck' | 'Train' | 'Vessel' | 'FlightNo' | 'Road' | 'Rail' | 'Sea' | 'Air' | 'Multimodal' ; */}
               <option key={-1} value={''} >Select a value</option>
               { 
-                formType === "PROFORMA_INVOICE" ? 
+                (formType === "COMMERCIAL_INVOICE" || formType === "CARGO_MANIFEST") ? 
                   <> 
-                    <option key={'Truck'} value={'Truck'}>Truck</option>
+                    <option key={'Truck'} value={ 'Truck'}>Truck</option>
                     <option key={'Train'} value={'Train'}>Train</option>
                     <option key={'Vessel'} value={'Vessel'}>Vessel</option>
                     <option key={'FlightNo'} value={'FlightNo'}>FlightNo</option> 
@@ -184,10 +146,10 @@ export const InvoiceForm = ({formType}:Props) => {
             <textarea name="remarks" value={invoiceData.remarks} onChange={handleChange}></textarea>
             <label>Terms of Delivery and Payments Terms:</label>
             <input type="text" name="termsOfDelivery" value={invoiceData.termsOfDelivery} onChange={handleChange} />
-            {/* <label>A. Incoterms:</label>
-            <input type="text" name="incoterms" value={invoiceData.incoterms} onChange={handleChange} />
+            <label>A. Incoterms:</label>
+            <input type="text" name="incoTerms" value={invoiceData.incoTerms} onChange={handleChange} />
             <label>B. Payment Terms:</label>
-            <input type="text" name="paymentTerms" value={invoiceData.paymentTerms} onChange={handleChange} /> */}
+            <input type="text" name="paymentTerms" value={invoiceData.paymentTerms} onChange={handleChange} />
         </fieldset>
 
         {/* Items Section */}
@@ -197,7 +159,7 @@ export const InvoiceForm = ({formType}:Props) => {
             <div key={item.id} className="item-row">
               <input type="text" name="marksNo" placeholder="Marks & No.s" value={item.marksNo} onChange={(e) => handleItemChange(index, e)} />
               <input type="text" name="noAndKind" placeholder="No. & Kind of" value={item.noAndKind} onChange={(e) => handleItemChange(index, e)} />
-              <input type="text" name="description" placeholder="Description" value={item.description} onChange={(e) => handleItemChange(index, e)} />
+              <textarea className='form-item-description' name="description" placeholder="Description" value={item.description} onChange={(e) => handleItemChange(index, e)} />
               <input type="number" name="quantity" placeholder="Quantity" value={item.quantity} onChange={(e) => handleItemChange(index, e)} />
               <input type="number" name="rate" placeholder="Rate" value={item.rate} onChange={(e) => handleItemChange(index, e)} />
               <button type="button" onClick={() => removeItem(index)} className="remove-btn">Remove</button>
@@ -218,7 +180,7 @@ export const InvoiceForm = ({formType}:Props) => {
 
       {/* This is the component that will be printed. It's hidden from the screen view. */}
       <div 
-      className='printable-component'
+      // className='printable-component'
       >
         <PrintableInvoice formType={formType} ref={printableRef} data={invoiceData} 
         // className='printable-area'

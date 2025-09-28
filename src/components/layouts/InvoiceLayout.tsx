@@ -1,10 +1,10 @@
 // src/PrintableInvoice.tsx
 
 import React from 'react';
-import { type CommonerSlice as CommonerSliceType } from '../types'; // Make sure this path is correct
-import {numberToWords} from '../functions/performaInvoice';
-import './ProformaInvoice.css';
-import type { formType } from '../redux/slice/uiSlice';
+import { type CommonerSlice as CommonerSliceType } from '../../types'; // Make sure this path is correct
+import {numberToWords} from '../../functions/performaInvoice';
+import '../../assets/css/InvoiceLayout.css';
+import type { formType } from '../../redux/slice/uiSlice';
 
 // Add `className` to the Props interface if it's not already there
 interface Props {
@@ -37,9 +37,9 @@ export const PrintableInvoice = React.forwardRef<HTMLDivElement, Props>((props, 
             <strong>Exporter</strong>
             <p>{data.exporter}</p>
           </div>
-          <div className={`box pro-ref ${(formType === "CARGO_MANIFEST")? "non-cargo" : ""}`}><strong>Invoice Ref & Date:</strong><p>{data.invoiceRefAndDate}</p></div>
+          <div className={`box pro-ref ${(formType === "CARGO_MANIFEST")? "non-cargo" : ""}`}><strong>Invoice Ref & Date:</strong><p>{data.invoiceRef}{data.invoiceDate && `, ${data.invoiceDate}`}</p></div>
           {(formType === "COMMERCIAL_INVOICE" || formType === "PROFORMA_INVOICE") ? <div className="box exporter-ref"><strong>Exporter's Reference No.:</strong><p>{data.exportersRefNo}</p></div> : ''}
-          <div className="box importer-ref"><strong>Importer's {(formType === "COMMERCIAL_INVOICE" || formType === "CARGO_MANIFEST") ? "Order" : "Ref"} No. & Date:</strong><p>{data.importersRefAndDate}</p></div>
+          <div className="box importer-ref"><strong>Importer's {(formType === "COMMERCIAL_INVOICE" || formType === "CARGO_MANIFEST") ? "Order" : "Ref"} No. & Date:</strong><p>{data.importersRef}{data.importersDate && `, ${data.importersDate}`}</p></div>
           { (formType === 'COMMERCIAL_INVOICE' || formType === 'CARGO_MANIFEST') ? <div className="box other-ref "><strong>Other Reference ( If any)</strong><p>{data.otherRef}</p></div> : ''}
         </div>
 
@@ -68,8 +68,8 @@ export const PrintableInvoice = React.forwardRef<HTMLDivElement, Props>((props, 
             {/* --- Right Panel --- */}
             <div className="transport-right-panel">
                 <div className="box payment-terms"><strong>Terms of Delivery and Payments Terms:</strong><p>{data.termsOfDelivery}</p></div>
-                {/* <div className="box incoterms"><strong>Terms of Delivery and Payments Terms:</strong><p>{data.termsOfDelivery}</p></div> */}
-                {/* <div className="box payment-terms"><strong>B. Payment Terms:</strong><p>{data.paymentTerms}</p></div> */}
+                <div className="box incoterms"><strong>A. Incoterms:</strong><p>{data.incoTerms}</p></div>
+                <div className="box payment-terms"><strong>B. Payment Terms:</strong><p>{data.paymentTerms}</p></div>
             </div>
         </div>
         
@@ -93,7 +93,7 @@ export const PrintableInvoice = React.forwardRef<HTMLDivElement, Props>((props, 
                   <tr key={item.id}>
                     <td><div>{item.marksNo}</div></td>
                     <td><div>{item.noAndKind}</div></td>
-                    <td><div>{item.description}</div></td>
+                    <td><div className='item-description'>{item.description}</div></td>
                     <td><div>{item.quantity}</div></td>
                     <td><div>{isNaN(Number(item.rate)) ? '' : Number(item.rate).toFixed(2)}</div></td>
                     <td><div>{isNaN(amount) ? '' : amount.toFixed(2)}</div></td>

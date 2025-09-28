@@ -8,6 +8,12 @@ body {
   background-color: #f2f2f2;
 }
 
+.item-description{
+  white-space: pre-wrap;
+  word-wrap: break-word !important;
+  max-width: 100%;
+}
+
 .invoice-wrapper {
   width: 100% !important;
   box-sizing: border-box !important;
@@ -145,7 +151,7 @@ body {
 }
 
 /* --- Section 4: Items Table --- */
-.items-table-container table { width: 100% !important; border-collapse: collapse !important; border: none !important;}
+.items-table-container table { width: 100% !important; border-collapse: collapse !important; border: none !important; border-top:1px solid black !important;table-layout: fixed !important;}
 .items-table-container th, .items-table-container td { border-bottom: 1px solid black !important; border-right: 1px solid black !important; padding: 5px !important; vertical-align: top !important; text-align: left !important; }
 .items-table-container th:last-child, .items-table-container td:last-child {
   border-right: none !important;

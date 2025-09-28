@@ -5,27 +5,28 @@ export interface InvoiceItem {
   description: string;
   quantity: string; // Use string for form input, parse to number later
   rate: string;
+  remarks:string;
 }
 
-export interface ProformaInvoiceData {
-  exporter: string;
-  consignee: string;
-  proRefAndDate: string;
-  importersRefAndDate: string;
-  exportersRefNo: string;
-  countryOfOrigin: string;
-  countryOfFinalDestination: string;
-  termsOfDelivery: string;
-  paymentTerms: string;
-  incoterms: string;
-  carriageBy: string;
-  placeByReceiptByPreCarrier: string;
-  portOfLoading: string;
-  portOfDischarge: string;
-  finalDestination: string;
-  items: InvoiceItem[];
-  amountChargeableInWord: string;
-}
+// export interface ProformaInvoiceData {
+//   exporter: string;
+//   consignee: string;
+//   proRefAndDate: string;
+//   importersRefAndDate: string;
+//   exportersRefNo: string;
+//   countryOfOrigin: string;
+//   countryOfFinalDestination: string;
+//   termsOfDelivery: string;
+//   paymentTerms: string;
+//   incoterms: string;
+//   carriageBy: string;
+//   placeByReceiptByPreCarrier: string;
+//   portOfLoading: string;
+//   portOfDischarge: string;
+//   finalDestination: string;
+//   items: InvoiceItem[];
+//   amountChargeableInWord: string;
+// }
 
 // commner slice types.
 
@@ -35,9 +36,11 @@ export type carriageByType = '' | 'Truck' | 'Train' | 'Vessel' | 'FlightNo' | 'R
 export type CommonerSlice = {
     exporter: string,
     consignee: string,
-    invoiceRefAndDate: string,
+    invoiceRef: string,
+    invoiceDate: string,
     exportersRefNo: string,
-    importersRefAndDate: string, // similar to import's order no. & data in 2 & 3 form
+    importersRef: string, // similar to import's order no. & data in 2 & 3 form
+    importersDate:string,
     countryOfOrigin: string,
     countryOfFinalDestination: string,
     placeByReceiptByPreCarrier:string,
@@ -47,6 +50,34 @@ export type CommonerSlice = {
     items: InvoiceItem[],
     remarks:string,
     termsOfDelivery:string,
-    carriageBy: carriageByType 
+    incoTerms:string,
+    paymentTerms:string,
+    carriageBy: carriageByType,
     otherRef:string,
+    vesselOrFlightNo:string,
+}
+
+// gspForm type
+
+export interface gspItem{
+  id:number,
+  itemNumber:string,
+  marksAndNoOfPackages: string,
+  description: string,
+  originCriterion: string,
+  grossWeight:string,
+  numberAndDateOfInvoice:string
+}
+
+export type gspSliceType = {
+  referenceNo:string,
+  issuingCountry:string,
+  importingCountry:string,
+  officialUse:string,
+  items:gspItem[],
+}
+
+export type certificateOriginSliceType = {
+  nameOfChamberOfCommerce:string,
+  addressOfChamberOfCommerce:string,
 }

@@ -55,6 +55,9 @@ function App() {
       case 'CERTIFICATE_ORIGIN':
         return <CertificateOriginForm formType="APPLICATION_FOR_CERTIFICATE_OF_ORIGIN"/>
 
+      case 'QUALITY_CONTROL':
+        return <CertificateOriginForm formType="APPLICATION_FOR_INSPECTION_OF_QUALITY_CONTROL"/>
+
       default:
         return <div>Please select a form</div>;
     }

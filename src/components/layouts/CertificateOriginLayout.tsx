@@ -1,8 +1,6 @@
 // src/PrintableInvoice.tsx
 
 import React from 'react';
-import { type CommonerSlice as CommonerSliceType } from '../../types'; // Make sure this path is correct
-import {numberToWords} from '../../functions/performaInvoice';
 import '../../assets/css/CertificateOriginLayout.css';
 import type { formType } from '../../redux/slice/uiSlice';
 import { useSelector } from 'react-redux';

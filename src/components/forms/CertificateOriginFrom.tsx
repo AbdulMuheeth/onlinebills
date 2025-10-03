@@ -9,7 +9,7 @@ import { type formType } from '../../redux/slice/uiSlice.ts';
 import { type AppDispatch, type RootState } from '../../redux/store.ts';
 import { updateCommoner } from '../../redux/slice/commonerSlice.ts';
 import { printHandler } from '../../functions/printHandler.tsx';
-import { updateCertificateOrigin } from '../../redux/slice/CertificateOriginSlice.ts';
+import { updateCertificateOrigin } from '../../redux/slice/certificateOriginSlice.ts';
 import {PrintableCertificateOrigin} from '../layouts/CertificateOriginLayout.tsx';
 
 interface Props {

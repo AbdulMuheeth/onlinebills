@@ -6,7 +6,7 @@ import storage from "redux-persist/lib/storage";
 import commonerReducers from './slice/commonerSlice';
 import uiReducer from './slice/uiSlice';
 import gspFormReducers from './slice/gspFormSlice';
-import certificateOriginReducer from './slice/CertificateOriginSlice';
+import certificateOriginReducer from './slice/certificateOriginSlice';
 
 const rootReducer = combineReducers({
     ui: uiReducer,

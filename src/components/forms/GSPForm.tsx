@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 // import { ReactToPrint } from 'react-to-print';
 import { countries } from 'countries-list'
 import { type CommonerSlice as CommonerSliceType, type gspItem, type gspSliceType } from '../../types.ts';
-import '../../assets/css/invoiceform.css'; // Form-specific styles
+import '../../assets/css/Invoiceform.css'; // Form-specific styles
 import { useDispatch, useSelector } from 'react-redux';
 import { type formType } from '../../redux/slice/uiSlice.ts';
 import { type AppDispatch, type RootState } from '../../redux/store.ts';

@@ -6,6 +6,7 @@ export interface InvoiceItem {
   quantity: string; // Use string for form input, parse to number later
   rate: string;
   remarks:string;
+  fobValue:string;
 }
 
 // export interface ProformaInvoiceData {
@@ -55,6 +56,7 @@ export type CommonerSlice = {
     carriageBy: carriageByType,
     otherRef:string,
     vesselOrFlightNo:string,
+    exporterAddress:string,
 }
 
 // gspForm type
@@ -80,4 +82,22 @@ export type gspSliceType = {
 export type certificateOriginSliceType = {
   nameOfChamberOfCommerce:string,
   addressOfChamberOfCommerce:string,
+}
+
+export type qualityControlSliceType = {
+  manufacturerName:string,
+  manufacturerAddress:string,
+  manufacturerDetails:string,
+  inspectionRequiredOn:string,
+  weeklyHoliday:string,
+  probableDateOfLanding:string,
+  dateOfSealingOrFlight:string,
+  technicalRequirement:string,
+  otherRelevantInformation:string,
+  buyerOrderNumber:string,
+  buyerOrderDate:string,
+  inspectionAuthorityName:string,
+  inspectionAuthorityAddress:string,
+  addressOfInspection:string,
+
 }

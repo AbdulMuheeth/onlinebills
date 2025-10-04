@@ -1,0 +1,162 @@
+/* public/print-invoice.css */
+
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  font-family: Arial, sans-serif !important;
+  margin: 0 !important;
+  background-color: #f2f2f2;
+}
+
+.item-description{
+  white-space: pre-wrap;
+  word-wrap: break-word !important;
+  max-width: 100%;
+}
+
+.invoice-wrapper {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 11px !important;
+  color: #000 !important;
+}
+
+.invoice-title {
+  text-align: center !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  /* text-decoration: underline !important; */
+  margin-bottom: 15px !important;
+}
+
+.box {
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  min-height: 50px !important;
+}
+.box p {
+  margin: 3px 0 0 0 !important;
+  white-space: pre-wrap !important;
+  min-height: 20px !important;
+}
+.box strong {
+  font-weight: bold !important;
+}
+
+/* --- Grids Setup --- */
+.header-QC-grid, .consignee-QC-grid, .items-table-container, .footer-QC-grid, .technical-requirement-QC, .relevant-information-QC {
+  border: 1px solid black !important;
+  border-bottom: none !important;
+}
+
+.technical-requirement-QC, .relevant-information-QC{
+    padding: 5px;
+    min-height: 50px !important;
+}
+
+/* --- Section 1: Header --- */
+.header-QC-grid {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr 1fr !important;
+  grid-template-rows: 1fr !important;
+  border-top: none !important;
+  border-left: none !important;
+  min-height: 70px !important;   
+}
+
+.header-QC-grid .exporter{
+    grid-row: 1 / span 2;
+}
+
+.header-QC-grid .ref-no{
+    border-right:1px solid black;
+}
+
+.header-QC-grid .ref-buyer{
+    grid-column: 2 / span 2;
+}
+
+
+/* --- Section 2: Consignee --- */
+.consignee-QC-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  grid-template-rows: 1fr !important;
+}
+.consignee-QC-grid .consignee-left-panel{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows:2fr 2fr 1fr 1fr !important;
+    border-right: 1px solid black !important;
+    border-left: none !important;
+}
+.consignee-QC-grid .consignee-left-panel .box{border-left: none !important;}
+.consignee-QC-grid .consignee-left-panel .manufacturer, .consignee-QC-grid .consignee-left-panel .manufacturerDetails{grid-column: 1 / span 2;}
+.consignee-QC-grid .consignee-left-panel .box.inspection-required{grid-row:3;grid-column: 1 / span 1;}
+.consignee-QC-grid .consignee-left-panel .box.weekly-holiday{grid-row:3;grid-column: 2 / span 1;}
+.consignee-QC-grid .consignee-right-panel .box.message{white-space: pre-wrap;border-left: none !important;}
+.consignee-QC-grid .consignee-left-panel .box.vesselno, .consignee-QC-grid .consignee-left-panel .box.probable-loading-date, .consignee-QC-grid .consignee-left-panel .box.inspection-required{border-right: 1px solid black !important;}
+
+.consignee-QC-grid .consignee-right-panel{
+    display: grid;
+    grid-template-columns: 1fr !important;
+    grid-template-rows:2fr 1fr !important;
+}
+
+.consignee-QC-grid .consignee-right-panel .message .message-signature{
+    display: flex;
+    justify-content: space-between;
+}
+.consignee-QC-grid .consignee-right-panel .box.inspection-address{
+    border-left: 0px solid black;
+}
+
+.inline-th-description{
+    font-weight:lighter;
+    font-size:8px;
+    font-style:italic;
+}
+
+/* --- Section 3: Items Table --- */
+.items-QC-table-container table { 
+    width: 100% !important; 
+    border-collapse: collapse !important; 
+    border: none !important; 
+    border-top:1px solid black !important;
+    table-layout: fixed !important; 
+}
+.items-QC-table-container th, .items-QC-table-container td { border-bottom: 1px solid black !important; border-right: 1px solid black !important; padding: 5px !important; vertical-align: top !important; text-align: left !important; }
+.items-QC-table-container th:last-child, .items-QC-table-container td:last-child {
+  border-right: 1px solid black !important;
+}
+.items-QC-table-container th:first-child, .items-QC-table-container td:first-child {
+  border-left: 1px solid black !important;
+}
+.items-QC-table-container th { font-weight: bold !important; background-color: #f2f2f2 !important; }
+.items-QC-table-container .empty-row td { height: 25px !important; }
+.items-QC-table-container { min-height: 30vh; border-bottom: 1px solid black !important; border-top:1px solid black;}
+
+tbody tr td > div {
+    height: 100%;
+    min-height: 40px !important;
+}
+/* --- Section 5: Footer --- */
+.footer-QC-grid {
+  display: grid !important;
+  grid-template-columns: 4fr 1fr !important;
+  border-bottom: 1px solid black !important;
+  /* border-top: none !important; */
+  padding-top:10px;
+  /* position: relative; */
+}
+
+
+.footer-QC-grid .box { border-top: none !important; border-left: none !important; }
+.footer-QC-grid .declaration { grid-column: 1 / span 2;}
+/* .footer-grid .amount-word { border-right: 1px solid black !important; } */
+/* .footer-QC-grid .total { text-align: right !important; } */
+/* .footer-QC-grid .total-amount-value { font-weight: bold !important; text-align: right !important; margin-right: 10px !important; } */
+/* .footer-grid .declaration {border-right: 1px solid black !important;} */
+.footer-QC-grid .signature { min-height: 60px !important; grid-column: 2; align-items: start; justify-items:start; border-left:1px solid black !important;border-top:1px solid black !important;}

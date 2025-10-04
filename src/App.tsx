@@ -6,6 +6,7 @@ import {type AppDispatch, type RootState} from './redux/store';
 import type React from 'react';
 import { GSPForm } from './components/forms/GSPForm';
 import {CertificateOriginForm} from './components/forms/CertificateOriginFrom';
+import { QualityControl } from './components/forms/QualityControlForm';
 
 const FormSelector = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -24,6 +25,11 @@ const FormSelector = () => {
           <option value="CARGO_MANIFEST">Cargo Manifest</option>
           <option value="GSP_FORM_A">GSP Form A</option>
           <option value="CERTIFICATE_ORIGIN">Application for Certificate of Origin</option>
+          <option value="QUALITY_CONTROL">Application for Inspection of Quality Control</option>
+          <option value="SHIPPING_INSTRUCTIONS">Shipping Instructions</option>
+          <option value="BILL_LADING">Bill of Lading (Combined Transport and Port to Port Shipment)</option>
+          <option value="INSURANCE_DECLARATION">Marine Insurance Declaration</option>
+          <option value="SHIPMENT_ADVICE">Shipment Advice</option>
         </select>
     </div>
   )
@@ -56,7 +62,19 @@ function App() {
         return <CertificateOriginForm formType="APPLICATION_FOR_CERTIFICATE_OF_ORIGIN"/>
 
       case 'QUALITY_CONTROL':
-        return <CertificateOriginForm formType="APPLICATION_FOR_INSPECTION_OF_QUALITY_CONTROL"/>
+        return <QualityControl formType="APPLICATION_FOR_INSPECTION_OF_QUALITY_CONTROL"/>
+      
+      case 'SHIPPING_INSTRUCTIONS':
+        return <></>
+
+      case 'BILL_LADING':
+        return <></>
+
+      case 'INSURANCE_DECLARATION':
+        return <></>
+
+      case 'SHIPMENT_ADVICE':
+        return <></>
 
       default:
         return <div>Please select a form</div>;

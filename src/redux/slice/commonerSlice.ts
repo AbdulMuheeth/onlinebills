@@ -24,7 +24,7 @@ const initialState: commonerSliceType = {
     carriageBy:'',
     otherRef:'',
     vesselOrFlightNo:'',
-    
+    exporterAddress:'',
 }
 
 

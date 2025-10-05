@@ -86,7 +86,7 @@ const GSPFormLayout = React.forwardRef<HTMLDivElement,Props>((props,ref) => {
               {gspFormData.items.map((item)=>(
                 <tr key={item.itemNumber}>
                   <td><div>{item.itemNumber}</div></td>
-                  <td><div>{item.marksAndNoOfPackages}</div></td>
+                  <td><div>{item.marksNo}</div></td>
                   <td><div className='item-description'>{item.description}</div></td>
                   <td><div>{item.originCriterion}</div></td>
                   <td><div>{item.grossWeight}</div></td>

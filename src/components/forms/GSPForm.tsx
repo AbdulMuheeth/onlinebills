@@ -53,7 +53,7 @@ export const GSPForm = ({formType}:Props) => {
 
     const items:InvoiceItem[] = [...gspFormData.items];
     items.push(
-      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'', fobValue:'', grossWeight:'', itemNumber:'', numberAndDateOfInvoice:'', originCriterion:'' }
+      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'', fobValue:'', grossWeight:'', itemNumber:'', numberAndDateOfInvoice:'', originCriterion:'', grossMeasurement:'' }
     )
 
     dispatch(updateGSPForm({key:"items",value: items}));

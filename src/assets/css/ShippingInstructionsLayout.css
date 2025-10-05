@@ -115,7 +115,10 @@ body {
     grid-column: 1 / span 1;
 }
 .consignee-SI-grid .consignee-right-panel .box.final-country{
-    grid-column: 2 / span 1;
+  grid-column: 2 / span 1;
+}
+.consignee-SI-grid .consignee-right-panel .box.origin-bl-country{
+  grid-column: 1 / span 2;
 }
 
 .inline-th-description{

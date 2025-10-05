@@ -12,6 +12,8 @@ const initialState:shippingInstructionSliceType = {
     notifyPartyName:'',
     onwardInlandRouting:'',
     placeOfIssue:'',
+    billOfLadingNo:'',
+    bookingNumber:'',
 }
 
 const shippingInstructionsSlice = createSlice({

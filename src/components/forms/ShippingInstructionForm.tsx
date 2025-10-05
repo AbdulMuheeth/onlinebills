@@ -92,26 +92,42 @@ export const ShippingInstruction = ({formType}:Props) => {
             
             {/* Reference Details */}
             <fieldset>
-              <legend>Invoice - Importer - References </legend>      
-               <label>Invoice Reference Number</label>
-               <input type="text" name="invoiceRef" value={invoiceData.invoiceRef} onChange={handleInvoiceChange} />
-               <label>Invoice Reference Date:</label>
-               <input type="date" name="invoiceDate" value={invoiceData.invoiceDate}onChange={handleInvoiceChange}/>
+              <legend> {formType === "SHIPPING_INSTRUCTIONS" ? "Invoice - Importer " : "Billing - Export " } - References </legend>      
+               {
+                  formType === "SHIPPING_INSTRUCTIONS" && 
+                  <>
+                    <label>Invoice Reference Number</label>
+                    <input type="text" name="invoiceRef" value={invoiceData.invoiceRef} onChange={handleInvoiceChange} />
+                    <label>Invoice Reference Date:</label>
+                    <input type="date" name="invoiceDate" value={invoiceData.invoiceDate}onChange={handleInvoiceChange}/>
+                    <label>Importer's Reference Number</label>
+                    <input type="text" name="importersRef" value={invoiceData.importersRef} onChange={handleInvoiceChange} />
+                    <label>Importer's Reference Date:</label>
+                    <input type="date" name="importersDate" value={invoiceData.importersDate}onChange={handleInvoiceChange}/>
+                    <label>Other Reference ( If any)</label>
+                    <textarea name="otherRef" value={invoiceData.otherRef} onChange={handleInvoiceChange} /> 
+                  </>
+               }
+               { 
+                  formType === "BILL_OF_LADING_(COMBINED_TRANSPORT_AND_PORT_TO_PORT_SHIPMENT)" &&
+                  <>
+                    <label>Booking No.:</label>
+                    <input type="text" name="bookingNumber" value={shippingInstructionsData.bookingNumber} onChange={handleShippingInstructionsChange} />
+                    <label>Bill of Lading No:</label>
+                    <input type="text" name="billOfLadingNo" value={shippingInstructionsData.billOfLadingNo} onChange={handleShippingInstructionsChange} />
+                  </>
+               }
                <label>Exporter Reference Number</label>
                <input type="text" name="exportersRefNo" value={invoiceData.exportersRefNo} onChange={handleInvoiceChange} />
-               <label>Importer's Reference Number</label>
-               <input type="text" name="importersRef" value={invoiceData.importersRef} onChange={handleInvoiceChange} />
-               <label>Importer's Reference Date:</label>
-               <input type="date" name="importersDate" value={invoiceData.importersDate}onChange={handleInvoiceChange}/>
-               <label>Other Reference ( If any)</label>
-               <textarea name="otherRef" value={invoiceData.otherRef} onChange={handleInvoiceChange} /> 
-               <label>Forwarding Agent/CHA:</label>
+               <label> {formType === "BILL_OF_LADING_(COMBINED_TRANSPORT_AND_PORT_TO_PORT_SHIPMENT)" ? "Forwarding Agent Reference" : "Forwarding Agent/CHA"} :</label>
                <input type="text" name="forwardingAgent" value={shippingInstructionsData.forwardingAgent} onChange={handleShippingInstructionsChange} /> 
             </fieldset>
     
             {/* Other Details - Add all other fields similarly */}
             <fieldset>
                 <legend>Shipment & Terms</legend>
+                <label>Point of Origin:</label>
+                <input type="text" name="pointOfOrigin" value={invoiceData.pointOfOrigin} onChange={handleInvoiceChange} />
                 <label>Country of Origin:</label>
                 <select name="countryOfOrigin" onChange={handleInvoiceChange} defaultValue={invoiceData.countryOfOrigin}>
                     {countryNames.map(name=>

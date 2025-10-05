@@ -69,8 +69,9 @@ function App() {
       case 'SHIPPING_INSTRUCTIONS':
         return <ShippingInstruction formType="SHIPPING_INSTRUCTIONS" />
 
+        //Bill of Lading (Combined Transport and Port to Port Shipment)
       case 'BILL_LADING':
-        return <></>
+        return <ShippingInstruction formType="BILL_OF_LADING_(COMBINED_TRANSPORT_AND_PORT_TO_PORT_SHIPMENT)"/>
 
       case 'INSURANCE_DECLARATION':
         return <></>

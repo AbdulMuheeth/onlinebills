@@ -63,6 +63,7 @@ export type CommonerSlice = {
     vesselOrFlightNo:string,
     exporterAddress:string,
     consigneeAddress?:string,
+    pointOfOrigin:string
 }
 
 // gspForm type
@@ -117,5 +118,7 @@ export type shippingInstructionSliceType = {
   freightPayableAt:string,
   placeOfIssue:string,
   declaredValue:string,
-  noOfOriginalBillOfLading:string
+  noOfOriginalBillOfLading:string,
+  billOfLadingNo:string,
+  bookingNumber:string,
 }

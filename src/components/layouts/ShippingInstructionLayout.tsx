@@ -36,13 +36,27 @@ export const PrintableShippingInstruction = React.forwardRef<HTMLDivElement, Pro
         {/* Section 1: Exporter and Refs */}
         <div className="header-SI-grid">
           <div className="box exporter">
-            <strong>Exporter ( Complete name & Address)</strong>
+            <strong>Exporter{formType==="BILL_OF_LADING_(COMBINED_TRANSPORT_AND_PORT_TO_PORT_SHIPMENT)" && "/Shipper"} ( Complete name & Address)</strong>
             <p>{invoiceData.exporter}, {invoiceData.exporterAddress}</p>
           </div>
-          <div className='box ref-no'><strong>Invoice No. & Date</strong><p>{invoiceData.invoiceRef}, {invoiceData.invoiceDate}</p></div>
-          <div className="box ref-date"><strong>Exporter's  Ref.</strong><p>{invoiceData.exportersRefNo}</p></div> 
-          <div className="box ref-buyer"><strong>Importer's Reference No & Date:</strong><p>{invoiceData.importersRef}, {invoiceData.importersDate}</p></div> 
-          <div className="box ref-other"><strong>Other Reference (If Any)</strong><p>{invoiceData.otherRef}</p></div> 
+          {
+            formType==="SHIPPING_INSTRUCTIONS" ?
+            <>
+              <div className='box ref-no'><strong>Invoice No. & Date</strong><p>{invoiceData.invoiceRef}, {invoiceData.invoiceDate}</p></div>
+              <div className="box ref-date"><strong>Exporter's  Ref.</strong><p>{invoiceData.exportersRefNo}</p></div> 
+            </> :
+            <>
+              <div className='box ref-no'><strong>Booking No.:</strong><p>{shippingInstructionData.bookingNumber}</p></div>
+              <div className="box ref-date"><strong>Bill of Lading No:</strong><p>{shippingInstructionData.billOfLadingNo}</p></div> 
+            </>
+          }
+          {formType === "SHIPPING_INSTRUCTIONS" ?
+          <>
+            <div className="box ref-buyer"><strong>Importer's Reference No & Date:</strong><p>{invoiceData.importersRef}, {invoiceData.importersDate}</p></div> 
+            <div className="box ref-other"><strong>Other Reference (If Any)</strong><p>{invoiceData.otherRef}</p></div> 
+          </> :
+            <div className="box ref-buyer"><strong>Export Reference:</strong><p>{invoiceData.exportersRefNo}</p></div> 
+          }
         </div>
 
         {/* Section 2: Consignee and Countries */}
@@ -59,11 +73,17 @@ export const PrintableShippingInstruction = React.forwardRef<HTMLDivElement, Pro
           </div>
           <div className='consignee-right-panel'>
             <div className='box forwarding-agent'>
-              <strong>Forwarding Agent/CHA:</strong>
+              <strong>{formType === "SHIPPING_INSTRUCTIONS" ? "Forwarding Agent/CHA:" : "Forwarding Agent Reference:" }</strong>
               <p>{shippingInstructionData.forwardingAgent}</p>
             </div>
-            <div className="box origin-country"><strong>Country of Origin of Goods:</strong><p>{invoiceData.countryOfOrigin}</p></div>
-            <div className="box final-country"><strong>Country of Final Destination:</strong><p>{invoiceData.countryOfFinalDestination}</p></div>
+            {
+              formType === "SHIPPING_INSTRUCTIONS" ?
+                <>
+                  <div className="box origin-country"><strong>Country of Origin of Goods:</strong><p>{invoiceData.countryOfOrigin}</p></div>
+                  <div className="box final-country"><strong>Country of Final Destination:</strong><p>{invoiceData.countryOfFinalDestination}</p></div>
+                </>:
+                <div className="box origin-bl-country"><strong>Point & Country of Origin:</strong><p>{invoiceData.pointOfOrigin}, {invoiceData.countryOfOrigin}</p></div>
+            }
           </div>
           
         </div>
@@ -74,7 +94,7 @@ export const PrintableShippingInstruction = React.forwardRef<HTMLDivElement, Pro
             <div className="transport-left-panel">
                 <div className="box carriage"><strong>Pre Carriage By</strong><p>{invoiceData.carriageBy}</p></div>
                 <div className="box receipt"><strong>Place By Receipt:</strong><p>{invoiceData.placeByReceiptByPreCarrier}</p></div>
-                <div className="box port-of-loading"><strong>Port of Loading/Dispatch:</strong><p>{invoiceData.portOfLoading}</p></div>
+                <div className="box port-of-loading"><strong>Port of Loading:</strong><p>{invoiceData.portOfLoading}</p></div>
                 <div className="box discharge"><strong>Port of Discharge:</strong><p>{invoiceData.portOfDischarge}</p></div>
                 <div className="box final-destination"><strong>Final Destination:</strong><p>{invoiceData.finalDestination}</p></div>
             </div>

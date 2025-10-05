@@ -1,0 +1,280 @@
+/* public/print-invoice.css */
+
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  font-family: Arial, sans-serif !important;
+  margin: 0 !important;
+  background-color: #f2f2f2;
+}
+
+.item-description{
+  white-space: pre-wrap;
+  word-wrap: break-word !important;
+  max-width: 100%;
+}
+
+.invoice-wrapper {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 11px !important;
+  color: #000 !important;
+}
+
+.invoice-title {
+  text-align: center !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  /* text-decoration: underline !important; */
+  margin-bottom: 15px !important;
+}
+
+.box {
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  min-height: 50px !important;
+}
+.box p {
+  margin: 3px 0 0 0 !important;
+  white-space: pre-wrap !important;
+  min-height: 20px !important;
+}
+.box strong {
+  font-weight: bold !important;
+}
+
+/* --- Grids Setup --- */
+.header-SI-grid, .consignee-SI-grid, .items-SI-table-container, .footer-SI-grid {
+  border: 1px solid black !important;
+  border-bottom: none !important;
+}
+
+
+/* --- Section 1: Header --- */
+.header-SI-grid {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr 1fr !important;
+  grid-template-rows: 1fr !important;
+  border-top: none !important;
+  border-left: none !important;
+  min-height: 70px !important;   
+}
+
+.header-SI-grid .exporter{
+    grid-row: 1 / span 3;
+}
+
+.header-SI-grid .ref-no{
+    border-right:1px solid black;
+}
+
+.header-SI-grid .ref-buyer{
+    grid-column: 2 / span 2;
+}
+
+.header-SI-grid .ref-other{
+    grid-column: 2 / span 2;
+}
+
+
+/* --- Section 2: Consignee --- */
+.consignee-SI-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  grid-template-rows: 1fr !important;
+}
+.consignee-SI-grid .consignee-left-panel{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows:1fr 1fr !important;
+    border-right: 1px solid black !important;
+    border-left: 1px solid black !important;
+    /* border-left: none !important; */
+}
+.consignee-SI-grid .consignee-left-panel .box{border-left: none !important;}
+.consignee-SI-grid .consignee-left-panel .consignee, .consignee-SI-grid .consignee-left-panel .notifyparty{grid-column: 1 / span 2;}
+.consignee-SI-grid .consignee-left-panel .box.inspection-required{grid-row:3;grid-column: 1 / span 1;}
+.consignee-SI-grid .consignee-left-panel .box.weekly-holiday{grid-row:3;grid-column: 2 / span 1;}
+.consignee-SI-grid .consignee-right-panel .box.message{white-space: pre-wrap; border-left: none !important;}
+.consignee-SI-grid .consignee-left-panel .box.vesselno, .consignee-SI-grid .consignee-left-panel .box.probable-loading-date, .consignee-SI-grid .consignee-left-panel .box.inspection-required{border-right: 1px solid black !important;}
+
+.consignee-SI-grid .consignee-right-panel{
+    display: grid;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows:2fr 1fr !important;
+    /* border-left: none !important; */
+}
+
+.consignee-SI-grid .consignee-right-panel .forwarding-agent{
+    grid-column: 1/span 2;
+}
+
+.consignee-SI-grid .consignee-right-panel .box.origin-country{
+    grid-column: 1 / span 1;
+}
+.consignee-SI-grid .consignee-right-panel .box.final-country{
+    grid-column: 2 / span 1;
+}
+
+.inline-th-description{
+    font-weight:lighter;
+    font-size:8px;
+    font-style:italic;
+}
+
+/* transport section */
+
+.transport-section .transport-SI-right-panel{
+    display: grid;
+}
+
+.footer-SI-grid{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+
+.footer-SI-grid .freigth-charges{
+    border-right: 1px solid black;
+}
+
+.footer-SI-grid .footer-right-panel{
+    display: grid;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: 3fr 1fr 1fr 1fr;
+}
+
+.footer-SI-grid .footer-right-panel .message{
+    grid-column: 1 / span 2;
+}
+
+.footer-SI-grid .footer-right-panel .freight-payable{
+    grid-column: 1 / span 1;
+}
+
+.footer-SI-grid .footer-right-panel .signature{
+    grid-column: 2 / span 1;
+    grid-row: 3/ span 2;
+}
+
+/* --- Section 3: Items Table --- */
+.items-SI-table-container{
+    border: 1px solid black;
+}
+
+.items-SI-table-container table { 
+    width: 100% !important; 
+    border-collapse: collapse !important; 
+    /* border: none !important;  */
+    border-top:1px solid black !important;
+    table-layout: fixed !important; 
+}
+.items-SI-table-container th, .items-SI-table-container td { border-bottom: 1px solid black !important; border-right: 1px solid black !important; padding: 5px !important; vertical-align: top !important; text-align: left !important; }
+.items-SI-table-container th:last-child, .items-SI-table-container td:last-child {
+  border-right: 1px solid black !important;
+}
+.items-SI-table-container th:first-child, .items-SI-table-container td:first-child {
+  border-left: 1px solid black !important;
+}
+.items-SI-table-container th { font-weight: bold !important; background-color: #f2f2f2 !important; }
+.items-SI-table-container .empty-row td { height: 25px !important; }
+.items-SI-table-container { min-height: 30vh; border-bottom: 1px solid black !important; border-top:1px solid black;}
+
+tbody tr td > div {
+    height: 100%;
+    min-height: 40px !important;
+}
+/* --- Section 5: Footer --- */
+.footer-QC-grid {
+  display: grid !important;
+  grid-template-columns: 4fr 1fr !important;
+  border-bottom: 1px solid black !important;
+  /* border-top: none !important; */
+  padding-top:10px;
+  /* position: relative; */
+}
+
+
+.footer-QC-grid .box { border-top: none !important; border-left: none !important; }
+.footer-QC-grid .declaration { grid-column: 1 / span 2;}
+/* .footer-grid .amount-word { border-right: 1px solid black !important; } */
+/* .footer-QC-grid .total { text-align: right !important; } */
+/* .footer-QC-grid .total-amount-value { font-weight: bold !important; text-align: right !important; margin-right: 10px !important; } */
+/* .footer-grid .declaration {border-right: 1px solid black !important;} */
+.footer-QC-grid .signature { min-height: 60px !important; grid-column: 2; align-items: start; justify-items:start; border-left:1px solid black !important;border-top:1px solid black !important;}
+
+
+
+/* --- Section 3: Transport --- */
+.transport-section {
+    display: grid !important;
+    /* This is the key fix: 2fr 2fr matches the effective 50/50 split of the sections above */
+    grid-template-columns: 2fr 2fr !important;
+    /* border-left: 1px solid black !important; */
+    border-right: 1px solid black !important;
+    /* border-top: 1px solid black !important; */
+}
+
+.transport-left-panel {
+    display: grid !important;
+    /* This creates two equal columns inside the left panel */
+    grid-template-columns: 1fr 1fr !important;
+    border-right: 1px solid black !important;
+}
+
+.transport-right-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    /* border-left: none !important; */
+}
+
+.box.carriage{
+    grid-row: 1 / span 2;
+    border-right: 1px solid black;
+}
+
+.box.incoterms{
+    border-top: none;
+    border-left: none;
+}
+
+.box.payment-terms{
+    border-top: none;
+    border-left: none;
+}
+
+.box.receipt{
+    border-left: none;
+}
+.box.port-of-loading{
+    border-left: none;
+    border-right: none;
+}
+
+.transport-section .box {
+    box-sizing: border-box !important;
+    /* border-bottom: 1px solid black !important; */
+    /* Use the universal .box styles for padding, border-top, border-left */
+}
+
+/* Add right border to the first column of the left panel */
+.transport-left-panel .box:nth-child(odd) {
+    /* border-right: 1px solid black !important; */
+}
+
+/* Remove bottom border from the last row of boxes */
+.transport-left-panel .discharge,
+.transport-left-panel .final-destination {
+    border-bottom: none !important;
+}
+.transport-left-panel .final-destination {
+    border-left: none !important;
+}
+.transport-left-panel .discharge{
+  border-right: 1px solid black !important;
+}
+.transport-right-panel .payment-terms {
+    border-bottom: none !important;
+}

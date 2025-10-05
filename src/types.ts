@@ -1,5 +1,6 @@
 export interface InvoiceItem {
   id: number; // For unique key in React
+  itemNumber:string;
   marksNo: string;
   noAndKind: string;
   description: string;
@@ -7,6 +8,10 @@ export interface InvoiceItem {
   rate: string;
   remarks:string;
   fobValue:string;
+  originCriterion:string;
+  grossWeight:string;
+  grossMeasurement:string;
+  numberAndDateOfInvoice:string;
 }
 
 // export interface ProformaInvoiceData {
@@ -57,6 +62,7 @@ export type CommonerSlice = {
     otherRef:string,
     vesselOrFlightNo:string,
     exporterAddress:string,
+    consigneeAddress?:string,
 }
 
 // gspForm type
@@ -76,7 +82,7 @@ export type gspSliceType = {
   issuingCountry:string,
   importingCountry:string,
   officialUse:string,
-  items:gspItem[],
+  items:InvoiceItem[],
 }
 
 export type certificateOriginSliceType = {
@@ -99,5 +105,17 @@ export type qualityControlSliceType = {
   inspectionAuthorityName:string,
   inspectionAuthorityAddress:string,
   addressOfInspection:string,
+}
 
+export type shippingInstructionSliceType = {
+  notifyPartyName:string,
+  notifyPartyAddress:string,
+  forwardingAgent:string,
+  exportInstructions:string,
+  onwardInlandRouting:string,
+  freightAndCharges:string,
+  freightPayableAt:string,
+  placeOfIssue:string,
+  declaredValue:string,
+  noOfOriginalBillOfLading:string
 }

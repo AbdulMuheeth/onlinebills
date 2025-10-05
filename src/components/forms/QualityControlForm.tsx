@@ -53,7 +53,7 @@ export const QualityControl = ({formType}:Props) => {
 
     const items:InvoiceItem[] = [...invoiceData.items];
     items.push(
-      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'', fobValue:''}
+      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'', fobValue:'', grossWeight:'', itemNumber:'', numberAndDateOfInvoice:'', originCriterion:'', grossMeasurement:'' }
     )
 
     dispatch(updateCommoner({key:"items",value: items}));

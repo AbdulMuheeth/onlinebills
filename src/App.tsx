@@ -5,8 +5,10 @@ import {setCurrentForm, type formType} from './redux/slice/uiSlice'
 import {type AppDispatch, type RootState} from './redux/store';
 import type React from 'react';
 import { GSPForm } from './components/forms/GSPForm';
-import {CertificateOriginForm} from './components/forms/CertificateOriginFrom';
+import { CertificateOriginForm } from './components/forms/CertificateOriginFrom';
 import { QualityControl } from './components/forms/QualityControlForm';
+import { ShippingInstruction } from './components/forms/ShippingInstructionForm';
+
 
 const FormSelector = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -65,7 +67,7 @@ function App() {
         return <QualityControl formType="APPLICATION_FOR_INSPECTION_OF_QUALITY_CONTROL"/>
       
       case 'SHIPPING_INSTRUCTIONS':
-        return <></>
+        return <ShippingInstruction formType="SHIPPING_INSTRUCTIONS" />
 
       case 'BILL_LADING':
         return <></>

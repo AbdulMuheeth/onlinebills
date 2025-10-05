@@ -10,7 +10,7 @@ import { type AppDispatch, type RootState } from '../../redux/store.ts';
 import { updateCommoner } from '../../redux/slice/commonerSlice.ts';
 import { printHandler } from '../../functions/printHandler.tsx';
 import { updateCertificateOrigin } from '../../redux/slice/certificateOriginSlice.ts';
-import { PrintableQualityControl } from '../layouts/QualityControlLayout.tsx';
+import { PrintableCertificateOrigin } from '../layouts/CertificateOriginLayout.tsx';
 
 interface Props {
   formType: formType,
@@ -53,7 +53,7 @@ export const CertificateOriginForm = ({formType}:Props) => {
 
     const items:InvoiceItem[] = [...invoiceData.items];
     items.push(
-      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'', fobValue:'' }
+      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'', fobValue:'', grossWeight:'', itemNumber:'', numberAndDateOfInvoice:'', originCriterion:'', grossMeasurement:''}
     )
 
     dispatch(updateCommoner({key:"items",value: items}));
@@ -162,7 +162,7 @@ export const CertificateOriginForm = ({formType}:Props) => {
           <div 
           // className='printable-component'
           >
-            <PrintableQualityControl formType={formType} ref={printableRef}
+            <PrintableCertificateOrigin formType={formType} ref={printableRef}
             // className='printable-area'
             />
           </div>

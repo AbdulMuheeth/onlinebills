@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 // import { useReactToPrint } from 'react-to-print';
 // import { ReactToPrint } from 'react-to-print';
 import { countries } from 'countries-list'
-import { type CommonerSlice as CommonerSliceType, type gspItem, type gspSliceType } from '../../types.ts';
+import { type CommonerSlice as CommonerSliceType, type gspSliceType, type InvoiceItem } from '../../types.ts';
 import '../../assets/css/Invoiceform.css'; // Form-specific styles
 import { useDispatch, useSelector } from 'react-redux';
 import { type formType } from '../../redux/slice/uiSlice.ts';
@@ -43,17 +43,17 @@ export const GSPForm = ({formType}:Props) => {
 
   const handleItemChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    const items:gspItem[] = [...gspFormData.items];
+    const items:InvoiceItem[] = [...invoiceData.items];
     items[index] = { ...items[index], [name]: value };
 
-    dispatch(updateGSPForm({key:"items",value: items}))
+    dispatch(updateCommoner({key:"items",value: items}))
   };
 
   const addItem = () => {
 
-    const items:gspItem[] = [...gspFormData.items];
+    const items:InvoiceItem[] = [...gspFormData.items];
     items.push(
-      { id: Date.now(), itemNumber: '', marksAndNoOfPackages: '', description: '', originCriterion: '', grossWeight: '', numberAndDateOfInvoice:'' }
+      { id: Date.now(), marksNo: '', noAndKind: '', description: '', quantity: '', rate: '', remarks:'', fobValue:'', grossWeight:'', itemNumber:'', numberAndDateOfInvoice:'', originCriterion:'' }
     )
 
     dispatch(updateGSPForm({key:"items",value: items}));
@@ -61,7 +61,7 @@ export const GSPForm = ({formType}:Props) => {
 
   const removeItem = (index: number) => {
 
-    let items:gspItem[] = [...gspFormData.items];
+    let items:InvoiceItem[] = [...gspFormData.items];
     items = gspFormData.items.filter((_, i) => i !== index);
 
     dispatch(updateGSPForm({key:"items",value: items}));
@@ -123,10 +123,10 @@ export const GSPForm = ({formType}:Props) => {
         {/* Items Section */}
         <fieldset className="full-width-fieldset">
           <legend>Items</legend>
-          {gspFormData.items.map((item, index) => (
+          {invoiceData.items.map((item, index) => (
             <div key={item.id} className="item-row">
               <input type="text" name="itemNumber" placeholder="Item Number" value={item.itemNumber} onChange={(e) => handleItemChange(index, e)} />
-              <input type="text" name="marksAndNoOfPackages" placeholder="Marks and Numbers of packages" value={item.marksAndNoOfPackages} onChange={(e) => handleItemChange(index, e)} />
+              <input type="text" name="marksNo" placeholder="Marks and Numbers of packages" value={item.marksNo} onChange={(e) => handleItemChange(index, e)} />
               <textarea style={{resize:"none",overflow:'hidden'}} name="description" placeholder="Number and Kind of Packages & description of goods" value={item.description} onChange={(e) => handleItemChange(index, e)}/>
               <input type="text" name="originCriterion" placeholder="Origin criterion" value={item.originCriterion} onChange={(e) => handleItemChange(index, e)} />
               <input type="text" name="grossWeight" placeholder="Gross Weight" value={item.grossWeight} onChange={(e) => handleItemChange(index, e)} />

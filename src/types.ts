@@ -122,3 +122,17 @@ export type shippingInstructionSliceType = {
   billOfLadingNo:string,
   bookingNumber:string,
 }
+
+export type insuranceDeclarationSliceType = {
+  nameOfInsuranceCompany: string,
+  addressOfInsuranceCompany: string,
+  insured: string,
+  from: string,
+  termsOfInsurance: string,
+  specialInstructions:string,
+  premiumRate:string,
+  marine:string,
+  war:string,
+  srcc:string,
+  stampDuty: string
+}

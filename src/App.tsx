@@ -8,6 +8,7 @@ import { GSPForm } from './components/forms/GSPForm';
 import { CertificateOriginForm } from './components/forms/CertificateOriginFrom';
 import { QualityControl } from './components/forms/QualityControlForm';
 import { ShippingInstruction } from './components/forms/ShippingInstructionForm';
+import { InsuranceDeclaration } from './components/forms/InsuranceDeclarationForm';
 
 
 const FormSelector = () => {
@@ -74,7 +75,7 @@ function App() {
         return <ShippingInstruction formType="BILL_OF_LADING_(COMBINED_TRANSPORT_AND_PORT_TO_PORT_SHIPMENT)"/>
 
       case 'INSURANCE_DECLARATION':
-        return <></>
+        return <InsuranceDeclaration formType="MARINE_INSURANCE_DECLARATION" />
 
       case 'SHIPMENT_ADVICE':
         return <></>

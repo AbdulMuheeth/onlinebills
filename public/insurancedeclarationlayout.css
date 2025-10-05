@@ -1,0 +1,114 @@
+/* public/print-invoice.css */
+
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  font-family: Arial, sans-serif !important;
+  margin: 0 !important;
+  background-color: #f2f2f2;
+}
+
+.item-description{
+  white-space: pre-wrap;
+  word-wrap: break-word !important;
+  max-width: 100%;
+}
+
+.invoice-wrapper {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 11px !important;
+  color: #000 !important;
+}
+
+.invoice-title {
+  text-align: center !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  /* text-decoration: underline !important; */
+  margin-bottom: 15px !important;
+}
+
+.box {
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  min-height: 50px !important;
+}
+.box p {
+  margin: 3px 0 0 0 !important;
+  white-space: pre-wrap !important;
+  min-height: 20px !important;
+}
+.box strong {
+  font-weight: bold !important;
+}
+
+/* --- Grids Setup --- */
+.consignee-ID-grid, .items-ID-table-container, .footer-ID-grid {
+  border: 1px solid black !important;
+  border-bottom: none !important;
+}
+
+/* --- Section 1: Header --- */
+/* .header-ID-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 1fr !important;
+  border-top: none !important;
+  border-left: none !important;
+  min-height: 70px !important;   
+}
+
+.header-ID-grid .ref-no{
+    border-right:1px solid black;
+} */
+
+/* --- Section 2: Consignee --- */
+.consignee-ID-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  grid-template-rows: 1fr !important;
+}
+.consignee-ID-grid .consignee-left-panel{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows:2fr 2fr 1fr 1fr 1fr 1fr !important;
+    border-right: 1px solid black !important;
+    border-left: none !important;
+}
+.consignee-ID-grid .consignee-left-panel .box{border-left: none !important;}
+.consignee-ID-grid .consignee-left-panel .general-insurance{grid-column: 1/span 2;}
+.consignee-ID-grid .consignee-left-panel .default-message{grid-column: 1 / span 2;}
+.consignee-ID-grid .consignee-left-panel .insured-SI{grid-column: 1 / span 2;}
+.consignee-ID-grid .consignee-left-panel .from-SI{grid-column: 1 / span 2;}
+/* .consignee-ID-grid .consignee-left-panel .box.carriage{grid-row:3;grid-column: 1 / span 1;} */
+.consignee-ID-grid .consignee-left-panel .box.receipt{grid-row:3;grid-column: 2 / span 1;}
+.consignee-ID-grid .consignee-right-panel .box.message{white-space: pre-wrap;border-left: none !important;}
+.consignee-ID-grid .consignee-left-panel .box.vesselno, .consignee-ID-grid .consignee-left-panel .box.discharge{border-right: 1px solid black !important;}
+
+
+/* --- Section 3: Items Table --- */
+.items-ID-table-container table { 
+    width: 100% !important; 
+    border-collapse: collapse !important; 
+    border: none !important; 
+    border-top:1px solid black !important;
+    table-layout: fixed !important; 
+}
+.items-ID-table-container th, .items-ID-table-container td { border-bottom: 1px solid black !important; border-right: 1px solid black !important; padding: 5px !important; vertical-align: top !important; text-align: left !important; }
+.items-ID-table-container th:last-child, .items-ID-table-container td:last-child {
+  border-right: 1px solid black !important;
+}
+.items-ID-table-container th:first-child, .items-ID-table-container td:first-child {
+  border-left: 1px solid black !important;
+}
+.items-ID-table-container th { font-weight: bold !important; background-color: #f2f2f2 !important; }
+.items-ID-table-container .empty-row td { height: 25px !important; }
+.items-ID-table-container { min-height: 30vh; border-bottom: 1px solid black !important; border-top:1px solid black;}
+
+tbody tr td > div {
+    height: 100%;
+    min-height: 40px !important;
+}

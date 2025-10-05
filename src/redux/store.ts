@@ -9,6 +9,7 @@ import gspFormReducers from './slice/gspFormSlice';
 import certificateOriginReducer from './slice/certificateOriginSlice';
 import qualityControlReducer from './slice/qualityControlSlice';
 import shippingInstructionReducer from "./slice/shippingInstructionSlice";
+import insuranceDeclarationReducer from "./slice/insuranceDeclarationSlice";
 
 const rootReducer = combineReducers({
     ui: uiReducer,
@@ -17,12 +18,13 @@ const rootReducer = combineReducers({
     certifcateOriginForm: certificateOriginReducer,
     qualityControl: qualityControlReducer,
     shippingInstructions: shippingInstructionReducer,
+    insuranceDeclaration: insuranceDeclarationReducer,
 })
 
 const persistConfig = {
     key:'root',
     storage,
-    whitelist:['commoner','ui','gspForm','certifcateOriginForm','qualityControl', 'shippingInstructions']
+    whitelist:['commoner','ui','gspForm','certifcateOriginForm','qualityControl', 'shippingInstructions','insuranceDeclaration']
 }
 
 const persistedReducers = persistReducer(persistConfig,rootReducer);

@@ -136,3 +136,35 @@ export type insuranceDeclarationSliceType = {
   srcc:string,
   stampDuty: string
 }
+
+export type allDocumentTypes = {
+  commercialInvoice : boolean,
+  customOrConsularInvoice : boolean,
+  packingList: boolean,
+  billOfLadingOrAirWayBill: boolean,
+  insuranceCertificateOrPolicy: boolean,
+  billOfExchange: boolean,
+  certificateOfOrigin: boolean,
+  GSPOrGSTPOrOtherCertificateofOrigin: boolean,
+  exportCertificateIfNeeded: boolean,
+  inspectionCertificate: boolean,
+  weightCertificate: boolean,
+  anyOtherDocuments: boolean,
+}
+
+export type otherDocumentTypes = {
+  certificateOfOrigin: 'GSP' | 'GSTP'  | '',
+  exportCertificate: boolean,
+  invoice:boolean,
+  packingList:boolean,
+}
+
+export type shipmentAdviceSliceType = {
+  documentsSent: allDocumentTypes,
+  nameOfBank: string,
+  addressOfBank: string,
+  otherDocument: otherDocumentTypes,
+  certificateOriginType:'GSP' | 'GSTP'  | 'other' | string,
+  carrier: string,
+  flightNo:string
+}

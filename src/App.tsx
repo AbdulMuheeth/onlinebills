@@ -9,6 +9,7 @@ import { CertificateOriginForm } from './components/forms/CertificateOriginFrom'
 import { QualityControl } from './components/forms/QualityControlForm';
 import { ShippingInstruction } from './components/forms/ShippingInstructionForm';
 import { InsuranceDeclaration } from './components/forms/InsuranceDeclarationForm';
+import { ShippingAdviceForm } from './components/forms/ShippingAdivceForm';
 
 
 const FormSelector = () => {
@@ -78,7 +79,7 @@ function App() {
         return <InsuranceDeclaration formType="MARINE_INSURANCE_DECLARATION" />
 
       case 'SHIPMENT_ADVICE':
-        return <></>
+        return <ShippingAdviceForm formType="SHIPMENT_ADVICE" />
 
       default:
         return <div>Please select a form</div>;

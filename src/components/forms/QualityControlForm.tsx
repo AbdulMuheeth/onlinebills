@@ -138,7 +138,7 @@ export const QualityControl = ({formType}:Props) => {
                   <input type="text" name="noAndKind" placeholder="No. & Kind of" value={item.noAndKind} onChange={(e) => handleItemChange(index, e)} />
                   <textarea className='form-item-description' name="description" placeholder="Description" value={item.description} onChange={(e) => handleItemChange(index, e)} />
                   <input type="number" name="quantity" placeholder="Quantity" value={item.quantity} onChange={(e) => handleItemChange(index, e)} />
-                  <input type="number" name="remarks" placeholder="FOB Value" value={item.fobValue} onChange={(e) => handleItemChange(index, e)} />
+                  <input type="number" name="fobValue" placeholder="FOB Value" value={item.fobValue} onChange={(e) => handleItemChange(index, e)} />
                   <button type="button" onClick={() => removeItem(index)} className="remove-btn">Remove</button>
                 </div>
               ))}

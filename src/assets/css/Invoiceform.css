@@ -172,3 +172,18 @@ legend {
     resize:none;
     overflow:hidden;
 }
+
+.checkbox-style {
+  display: flex;
+  align-items: center;         /* Vertically center items */
+  justify-content: space-between; /* Keep label on left, checkbox on right */
+  width: 300px;                /* optional fixed width for consistency */
+  margin-bottom: 8px;          /* space between rows */
+  font-size: 16px;             /* readable text */
+}
+
+.checkbox-style input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}

@@ -162,6 +162,7 @@ export const InvoiceForm = ({formType}:Props) => {
               <textarea className='form-item-description' name="description" placeholder="Description" value={item.description} onChange={(e) => handleItemChange(index, e)} />
               <input type="number" name="quantity" placeholder="Quantity" value={item.quantity} onChange={(e) => handleItemChange(index, e)} />
               <input type="number" name="rate" placeholder="Rate" value={item.rate} onChange={(e) => handleItemChange(index, e)} />
+              <input type="number" style={{color:"grey"}} placeholder="Amount" value={Number(item.rate) * Number(item.quantity)} readOnly/>
               <button type="button" onClick={() => removeItem(index)} className="remove-btn">Remove</button>
             </div>
           ))}
